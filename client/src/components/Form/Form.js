@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+
 import { TextField, Button, Typography, Paper } from '@material-ui/core'
 import FileBase from 'react-file-base64'
+
+import { createPost } from '../../actions/posts'
 
 import useStyles from './styles'
 
@@ -14,8 +18,12 @@ const Form = () => {
     selectedFile: '',
   })
   const classes = useStyles()
+  const dispatch = useDispatch()
 
-  const handleSubmit = () => {}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(createPost(postData))
+  }
 
   const clear = () => {}
 
@@ -51,7 +59,7 @@ const Form = () => {
           variant='outlined'
           label='Message'
           fullWidth
-          value={postData.creator}
+          value={postData.message}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
           }
